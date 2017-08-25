@@ -9,16 +9,39 @@ app.use(function(req, res, next) {
     next();
 });
 app.get('/api/articles',function(req,res){
-    var data = [
-        {
-            title:'ajax已死，fetch才是未来！',
-            content:'瞎说'
-        },
-        {
-            title:'ajax已死，fetch才是未来！',
-            content:'瞎说'
+    var data;
+    if(req.query.type){
+        if(req.query.type=='learn'){
+            data = [
+                {
+                    title:'ajax已死，fetch才是未来！',
+                    content:'瞎说'
+                },
+                {
+                    title:'ajax已死，fetch才是未来！',
+                    content:'瞎说'
+                }
+            ]
+        }else if(req.query.type=='life') {
+            data = [
+                {
+                    title:'西藏骑行',
+                    content:'瞎说'
+                },
+                {
+                    title:'ajax已死，fetch才是未来！',
+                    content:'瞎说'
+                }
+            ]
+        }else{
+            res.send('404\n 没有该分类')
         }
-    ]
+    }else {
+
+    }
+    console.log(req.query)    
     res.send(data);
 })
-app.listen(3000)
+app.listen(3000,function(){
+    console.log('listen on port 3000')
+})
