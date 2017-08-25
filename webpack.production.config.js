@@ -1,15 +1,15 @@
 var path = require('path');
-var ROOTPATH = path.resolve(__dirname,'./');
-console.log(ROOTPATH)
 var OpenBrowserPlugin  = require('open-browser-webpack-plugin');
+var htmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
+const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 module.exports = {
-    devtool:'cheap-eval-source-map',
+    devtool:'eval-source-map',
     entry:'./app/main.js',
     output:{
-        path:ROOTPATH+'/dist',
-        filename:'bundle.js',
-        publicPath:'./dist'
+        path:path.resolve(__dirname,'./dist'),
+        filename:'[name].js',
+        // publicPath:'./dist'
     },
     module:{
         loaders:[
@@ -20,19 +20,29 @@ module.exports = {
         },
         {
             test:/\.css$/,
-            loader:'style-loader!css-loader!postcss-loader!'
-        },{
+            loader:'style-loader!css-loader!postcss-loader'
+        },
+        {
             test:/\.less$/,
             loader:'style-loader!css-loader!postcss-loader!less-loader'
         }
         ]
     },
     plugins:[
-    // new HotModuleReplacementPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new htmlWebpackPlugin({
+        title:'hi',
+        template:'./index.html',
+        inject:true,
+        hash:true,
+        exclude:/node_modules/
+    }),
     new OpenBrowserPlugin({url:'http://localhost:8080'})
     ],
     devServer:{
+        contentBase:'./dist',
         historyApiFallback:true,
         inline:true,
+        hot:true,
     }
 }

@@ -1,3 +1,97 @@
-div {
-    background-color:#aaa;
+html,body {
+    font-family: 'microsoft yahei';
+    font-size:14px;
+}
+html,body,div,p,h1,h2,h3,textarea {
+    margin: 0;
+    padding:0;
+}
+h1 {
+    display: inline;
+}
+a {
+    text-decoration: none;
+}
+header {
+    height: 100px;
+    line-height: 100px;
+    background-color:#;
+    color:#607d8b;
+    border-bottom:1px solid #ccc;
+}
+.mid {
+    width: 1190px;
+    margin:0 auto;
+}
+.fr {
+    float:right;
+}
+.fr a {
+    display: inline-block;
+    color:#607d8b;
+    width:80px;
+    text-align: center;
+}
+.fr a {
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    border: none;
+    border-radius: 2px;
+    position: relative;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    will-change: box-shadow, transform;
+    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    background: transparent;
+}
+
+.fr a:active {
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+.ripple {
+    user-select:none;
+    -ms-user-select:none;
+    -moz-user-select:none;
+    position: relative;
+    overflow: hidden
+}
+.ripple:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, #000 10%, transparent 10.01%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transform: scale(10, 10);
+    opacity: 0;
+    transition: transform .5s, opacity 1s
+}
+
+.ripple:active:after {
+    transform: scale(0, 0);
+    opacity: .2;
+    transition: 0s
+}
+.listitem {
+    padding:10px;
+    border-bottom: 1px solid #ddd;
+}
+.left {
+    float:left;
+    width:870px;
+}
+.right {
+    float:right;
+    width: 200px;
 }

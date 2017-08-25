@@ -1,10 +1,17 @@
+require('react-hot-loader/patch')
 var path = require('path');
 var OpenBrowserPlugin  = require('open-browser-webpack-plugin');
 var htmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
 module.exports = {
     devtool:'eval-source-map',
-    entry:'./app/main.js',
+    entry:{
+        app:[
+            'react-hot-loader/patch',
+            'eventsource-polyfill',   //necessary for hot reloading with IE
+            './app/main.js'
+        ]
+    },
     output:{
         path:path.resolve(__dirname,'./dist'),
         filename:'[name].js',
@@ -15,7 +22,7 @@ module.exports = {
         {
             test:/\.js$/,
             exclude:/node_modules/,
-            loader:'babel-loader'
+            loader:['react-hot-loader/webpack', 'babel-loader']
         },
         {
             test:/\.css$/,
@@ -29,11 +36,10 @@ module.exports = {
     plugins:[
     new webpack.HotModuleReplacementPlugin(),
     new htmlWebpackPlugin({
-        title:'hi',
+        title:'webpack app',
         template:'./index.html',
         inject:true,
         hash:true,
-        exclude:/node_modules/
     }),
     new OpenBrowserPlugin({url:'http://localhost:8080'})
     ],
