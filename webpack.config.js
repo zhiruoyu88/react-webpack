@@ -15,7 +15,7 @@ module.exports = {
     output:{
         path:path.resolve(__dirname,'./dist'),
         filename:'[name].js',
-        // publicPath:'./dist'
+        publicPath:'http://localhost:8080'
     },
     module:{
         loaders:[
@@ -30,6 +30,15 @@ module.exports = {
         },{
             test:/\.less$/,
             loader:'style-loader!css-loader!postcss-loader!less-loader'
+        },{
+            test: /\.(png|jpe?g|gif|ico)(\?\S*)?$/,
+　　　　　　 loader: 'url-loader?limit=8192&name=img/[hash:8].[name].[ext]'
+        },{
+            test: /\.(png|jpe?g|gif|ico)(\?\S*)?$/,
+            loader: 'file-loader',
+            query: {
+                name: 'img/[name].[ext]'
+            }
         }
         ]
     },
@@ -44,7 +53,7 @@ module.exports = {
     new OpenBrowserPlugin({url:'http://localhost:8080'})
     ],
     devServer:{
-        contentBase:'./dist',
+        contentBase:path.resolve(__dirname,'./dist'),
         historyApiFallback:true,
         inline:true,
         hot:true,
